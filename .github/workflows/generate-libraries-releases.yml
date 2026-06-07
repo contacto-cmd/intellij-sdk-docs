@@ -9,8 +9,15 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
       - name: Generate
+        env:
+          GITHUB_WORKSPACE: ${{ github.workspace }}
         run: "${GITHUB_WORKSPACE}/.github/scripts/libraries_releases.main.kts"
       - name: Commit changes
         uses: Endbug/add-and-commit@v9
